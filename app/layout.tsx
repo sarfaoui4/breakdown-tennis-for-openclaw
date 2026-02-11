@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import SupabaseProvider from "./auth/supabase-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,13 +17,11 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <body className={`${inter.className} antialiased`}>
-        <SupabaseProvider>
-          <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
-            <main className="container mx-auto px-4 py-8">
-              {children}
-            </main>
-          </div>
-        </SupabaseProvider>
+        <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+          <main className="container mx-auto px-4 py-8">
+            {children}
+          </main>
+        </div>
       </body>
     </html>
   );
