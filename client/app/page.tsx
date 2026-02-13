@@ -17,7 +17,7 @@ export default function Home() {
       {/* Hero */}
       <header className="px-6 py-24 text-center">
         <h1 className="text-5xl font-extrabold mb-6 leading-tight">
-          Analyse vidéo de tennis <span className="text-[#FF5722]">haute performance</span> — V2
+          Analyse vidéo de tennis <span className="text-[#FF5722]">haute performance</span>
         </h1>
         <p className="text-lg text-[#A0A0A0] max-w-2xl mx-auto mb-10">
           Vous envoyez vos vidéos (≤15 min), un expert analyse chaque point et vous renvoie un feedback clair et actionnable. 
