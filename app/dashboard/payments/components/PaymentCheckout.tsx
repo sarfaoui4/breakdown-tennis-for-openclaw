@@ -38,11 +38,18 @@ export default function PaymentCheckout({ userId }: PaymentCheckoutProps) {
         throw new Error('Stripe non initialisé')
       }
 
-      const { error } = await stripe.redirectToCheckout({ sessionId })
-      
-      if (error) {
-        console.error('Erreur Stripe:', error)
-        alert('Erreur lors du paiement: ' + error.message)
+      // redirectToCheckout only works in browser
+      if (typeof window !== 'undefined') {
+        const { error } = await stripe.redirectToCheckout({ sessionId })
+        
+        if (error) {
+          console.error('Erreur Stripe:', error)
+          alert('Erreur lors du paiement: ' + error.message)
+        }
+      } else {
+        // Fallback for server-side: redirect manually
+        console.warn('Cannot redirect to checkout on server side')
+        alert('Veuillez rafraîchir la page pour procéder au paiement')
       }
     } catch (error) {
       console.error('Erreur checkout:', error)
