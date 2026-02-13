@@ -1,10 +1,17 @@
 'use client'
 
 import { useState } from 'react'
-import { loadStripe } from '@stripe/stripe-js'
 import { createClient } from '@/lib/supabase/client'
 
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!)
+// Dynamic import for Stripe - only loads on client side
+const loadStripeClient = () => {
+  if (typeof window === 'undefined') {
+    return Promise.resolve(null)
+  }
+  return import('@stripe/stripe-js').then((module) => 
+    module.loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!)
+  )
+}
 
 interface PaymentCheckoutProps {
   userId: string
@@ -33,23 +40,18 @@ export default function PaymentCheckout({ userId }: PaymentCheckoutProps) {
 
       const { sessionId } = await response.json()
       
-      const stripe = await stripePromise
+      const stripe = await loadStripeClient()
       if (!stripe) {
         throw new Error('Stripe non initialisé')
       }
 
       // redirectToCheckout only works in browser
-      if (typeof window !== 'undefined') {
-        const { error } = await stripe.redirectToCheckout({ sessionId })
-        
-        if (error) {
-          console.error('Erreur Stripe:', error)
-          alert('Erreur lors du paiement: ' + error.message)
-        }
-      } else {
-        // Fallback for server-side: redirect manually
-        console.warn('Cannot redirect to checkout on server side')
-        alert('Veuillez rafraîchir la page pour procéder au paiement')
+      // This code will only run on client side
+      const { error } = await stripe.redirectToCheckout({ sessionId })
+      
+      if (error) {
+        console.error('Erreur Stripe:', error)
+        alert('Erreur lors du paiement: ' + error.message)
       }
     } catch (error) {
       console.error('Erreur checkout:', error)
