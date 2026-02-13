@@ -1,0 +1,127 @@
+{
+  "spawnedAt": "2026-02-13T17:38:00+01:00",
+  "maxConcurrent": 13,
+  "sessions": [
+    {
+      "role": "dev-ui",
+      "sessionKey": "agent:main:subagent:c355a6c5-0e4a-4df8-89d1-111c19d10487",
+      "runId": "d2ebfa78-daf0-43d0-a31a-b36340910f17",
+      "status": "running",
+      "lastUpdate": null,
+      "task": "Coordination frontend, design system, validation architecture",
+      "estimatedMinutes": 120
+    },
+    {
+      "role": "marketing",
+      "sessionKey": "agent:main:subagent:f7e09eea-dbb0-4ed1-97a1-01a1c04da5b6",
+      "runId": "25383fcb-3182-4a6e-a574-b42ea1714cc6",
+      "status": "idle",
+      "lastUpdate": 1771002400000,
+      "task": "Stratégie acquisition, pricing, tunnel conversion (terminé)",
+      "estimatedMinutes": 0
+    },
+    {
+      "role": "copy",
+      "sessionKey": "agent:main:subagent:586406e9-99a8-427a-a6c4-cb9e2c01a434",
+      "runId": "2c048b0a-5606-4645-835a-b0faa3b72d27",
+      "status": "idle",
+      "lastUpdate": 1771002400000,
+      "task": "Micro-copies interface (terminé)",
+      "estimatedMinutes": 0
+    },
+    {
+      "role": "support",
+      "sessionKey": "agent:main:subagent:a343fdad-de58-4e87-8d51-2670de5aeb46",
+      "runId": "38bfefbc-01a2-4394-9f19-b3f183e512b2",
+      "status": "idle",
+      "lastUpdate": 1771002400000,
+      "task": "FAQ et chat widget (terminé)",
+      "estimatedMinutes": 0
+    },
+    {
+      "role": "analytics",
+      "sessionKey": "agent:main:subagent:af7bd2f2-209b-46ad-8989-e004bc8b41fb",
+      "runId": "6d1e8a52-96e3-4516-94a1-038d0628ae55",
+      "status": "idle",
+      "lastUpdate": 1771002400000,
+      "task": "Métriques et dashboard analytics (terminé)",
+      "estimatedMinutes": 0
+    },
+    {
+      "role": "reception",
+      "sessionKey": "agent:main:subagent:60e20d8f-50ce-466e-ac5e-04e95bc2a705",
+      "runId": "843c3b22-a872-4b52-8c76-6eede98333e8",
+      "status": "idle",
+      "lastUpdate": 1771002400000,
+      "task": "Workflow onboarding emails (terminé)",
+      "estimatedMinutes": 0
+    },
+    {
+      "role": "dev-components",
+      "sessionKey": "agent:main:subagent:4f39211c-d7fc-452f-8fb8-419f60ff2b61",
+      "runId": "4ecf10b7-d222-4888-a303-3e0603eeb021",
+      "status": "running",
+      "lastUpdate": null,
+      "task": "Créer bibliothèque composants UI (Button, Card, Input, Modal, etc.)",
+      "estimatedMinutes": 90
+    },
+    {
+      "role": "dev-pages",
+      "sessionKey": "agent:main:subagent:ea672c30-4a33-4419-9e67-571401107666",
+      "runId": "5327dd53-d825-47e0-ad5d-8248ac4fbb5f",
+      "status": "running",
+      "lastUpdate": null,
+      "task": "Implémenter pages principales (landing, pricing, upload, dashboard)",
+      "estimatedMinutes": 120
+    },
+    {
+      "role": "dev-payments",
+      "sessionKey": "agent:main:subagent:05d8dfc8-1caa-4bae-a5ef-3d318a1d5e33",
+      "runId": "ae34b727-22ad-4550-b254-9e822d3add52",
+      "status": "running",
+      "lastUpdate": null,
+      "task": "Intégration Stripe Connect (checkout, webhooks, retour)",
+      "estimatedMinutes": 90
+    },
+    {
+      "role": "dev-auth",
+      "sessionKey": "agent:main:subagent:b5a1e676-5598-4558-896a-65bcf5846ec0",
+      "runId": "c5b986f2-638e-47e5-acf6-067d6543afae",
+      "status": "running",
+      "lastUpdate": null,
+      "task": "Configurer Supabase Auth (client, middleware, pages)",
+      "estimatedMinutes": 90
+    },
+    {
+      "role": "copy-integration",
+      "sessionKey": "agent:main:subagent:db792f5f-cc0b-4ba5-bfab-6462ae91cda6",
+      "runId": "b6dbf241-56e7-41e3-9a49-a7490b0ad55d",
+      "status": "running",
+      "lastUpdate": null,
+      "task": "Intégrer micro-copies dans composants/pages (copy)",
+      "estimatedMinutes": 60
+    },
+    {
+      "role": "support-integration",
+      "sessionKey": "agent:main:subagent:453c1e44-6c71-427b-8e06-e5af499352ad",
+      "runId": "2fb9ba8a-0bf2-41d2-a509-908de83cb467",
+      "status": "running",
+      "lastUpdate": null,
+      "status": "running",
+      "lastUpdate": null,
+      "task": "Intégrer FAQ/chat widget (support)",
+      "estimatedMinutes": 60
+    },
+    {
+      "role": "analytics-integration",
+      "sessionKey": "agent:main:subagent:e2e39005-df12-432d-b8e0-50f723a9b134",
+      "runId": "611d0787-764a-4660-aa1e-e702690fac22",
+      "status": "running",
+      "lastUpdate": null,
+      "task": "Implémenter tracking analytics (événements, dashboard)",
+      "estimatedMinutes": 45
+    }
+  ],
+  "pending": [],
+  "heartbeatMinutes": 3
+}
