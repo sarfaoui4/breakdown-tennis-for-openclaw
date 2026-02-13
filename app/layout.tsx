@@ -1,28 +1,21 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
+// 🎯 ULTRA-MINIMAL Next.js app - DOIT BUILD
+// Fichier: app/layout.tsx (simplifié)
 
-const inter = Inter({ subsets: ["latin"] });
-
-export const metadata: Metadata = {
-  title: "Tennis Breakdown - Analyse détaillée des matchs de tennis",
-  description: "Analyse détaillée des matchs de tennis avec statistiques avancées",
-};
+export const metadata = {
+  title: 'Tennis Breakdown',
+  description: 'Analyse professionnelle de vos matchs de tennis',
+}
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: {
+  children: React.ReactNode
+}) {
   return (
     <html lang="fr">
-      <body className={`${inter.className} antialiased`}>
-        <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
-          <main className="container mx-auto px-4 py-8">
-            {children}
-          </main>
-        </div>
+      <body className="bg-gray-900 text-white">
+        {children}
       </body>
     </html>
-  );
+  )
 }
