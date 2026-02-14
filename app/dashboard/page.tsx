@@ -3,7 +3,7 @@
 
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
-import PaymentSection from '@/components/PaymentSection'
+import PaymentSection from './components/PaymentSection'
 import { Suspense } from 'react'
 
 export default async function DashboardPage({
