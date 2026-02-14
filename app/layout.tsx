@@ -1,6 +1,8 @@
 // 🎯 ULTRA-MINIMAL Next.js app - DOIT BUILD
 // Fichier: app/layout.tsx (simplifié)
 
+import './globals.css'
+
 export const metadata = {
   title: 'Tennis Breakdown',
   description: 'Analyse professionnelle de vos matchs de tennis',
