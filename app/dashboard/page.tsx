@@ -3,13 +3,30 @@
 
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
+import PaymentSection from '@/components/PaymentSection'
+import { Suspense } from 'react'
 
-export default async function DashboardPage() {
+export default async function DashboardPage({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | string[] | undefined }
+}) {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
 
   if (!user) {
     redirect('/auth/login')
+  }
+
+  // Vérifier si une vidéo vient d'être uploadée (query param uploaded)
+  const uploadedVideoId = typeof searchParams.uploaded === 'string' ? searchParams.uploaded : undefined
+
+  // Récupérer les stats (pour l'instant des valeurs fixes)
+  const stats = {
+    purchased: 0,
+    processing: 0,
+    completed: 0,
+    nextAnalysis: '-'
   }
 
   return (
@@ -49,24 +66,33 @@ export default async function DashboardPage() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
           <div className="bg-gradient-to-r from-gray-800 to-gray-900 border border-gray-700 rounded-2xl p-6">
             <h3 className="text-sm font-medium text-gray-300 mb-2">Analyses achetées</h3>
-            <div className="text-3xl font-bold">0</div>
+            <div className="text-3xl font-bold">{stats.purchased}</div>
           </div>
           
           <div className="bg-gradient-to-r from-gray-800 to-gray-900 border border-gray-700 rounded-2xl p-6">
             <h3 className="text-sm font-medium text-gray-300 mb-2">En traitement</h3>
-            <div className="text-3xl font-bold text-yellow-400">0</div>
+            <div className="text-3xl font-bold text-yellow-400">{stats.processing}</div>
           </div>
           
           <div className="bg-gradient-to-r from-gray-800 to-gray-900 border border-gray-700 rounded-2xl p-6">
             <h3 className="text-sm font-medium text-gray-300 mb-2">Terminées</h3>
-            <div className="text-3xl font-bold text-green-400">0</div>
+            <div className="text-3xl font-bold text-green-400">{stats.completed}</div>
           </div>
           
           <div className="bg-gradient-to-r from-gray-800 to-gray-900 border border-gray-700 rounded-2xl p-6">
             <h3 className="text-sm font-medium text-gray-300 mb-2">Prochaine analyse</h3>
-            <div className="text-lg">-</div>
+            <div className="text-lg">{stats.nextAnalysis}</div>
           </div>
         </div>
+
+        {/* Payment Section (if video just uploaded) */}
+        {uploadedVideoId && (
+          <div className="mb-12">
+            <Suspense fallback={<div>Chargement...</div>}>
+              <PaymentSection videoId={uploadedVideoId} />
+            </Suspense>
+          </div>
+        )}
 
         {/* Quick actions */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
