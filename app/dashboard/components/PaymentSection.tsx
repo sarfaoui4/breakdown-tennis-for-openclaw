@@ -19,7 +19,7 @@ export default function PaymentSection({ videoId }: PaymentSectionProps) {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          matchId: videoId,
+          videoId: videoId,
           analysisType: type,
         }),
       })
@@ -66,7 +66,7 @@ export default function PaymentSection({ videoId }: PaymentSectionProps) {
           <button
             onClick={() => handlePay('basic')}
             disabled={loading}
-            className="w-full py-3 bg-gradient-to-r from-green-600 to-green-700 rounded-lg font-semibold hover:from-green-700 hover:to-green-800 transition-all disabled:opacity-50"
+            className="w-full py-3 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-lg font-semibold hover:from-green-700 hover:to-green-800 transition-all disabled:opacity-50"
           >
             {loading ? 'Traitement...' : 'Payer et analyser'}
           </button>
@@ -74,7 +74,7 @@ export default function PaymentSection({ videoId }: PaymentSectionProps) {
 
         {/* Premium */}
         <div className="bg-gradient-to-r from-gray-900 to-gray-800 border border-orange-500 rounded-xl p-6 relative">
-          <div className="absolute -top-3 right-4 px-3 py-1 bg-orange-500 text-sm rounded-full">
+          <div className="absolute -top-3 right-4 px-3 py-1 bg-orange-500 text-white text-sm rounded-full">
             Recommandé
           </div>
           <h4 className="text-xl font-bold mb-2">Analyse Premium</h4>
@@ -89,7 +89,7 @@ export default function PaymentSection({ videoId }: PaymentSectionProps) {
           <button
             onClick={() => handlePay('premium')}
             disabled={loading}
-            className="w-full py-3 bg-gradient-to-r from-orange-500 to-orange-600 rounded-lg font-semibold hover:from-orange-600 hover:to-orange-700 transition-all disabled:opacity-50"
+            className="w-full py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-lg font-semibold hover:from-orange-600 hover:to-orange-700 transition-all disabled:opacity-50"
           >
             {loading ? 'Traitement...' : 'Payer et analyser'}
           </button>

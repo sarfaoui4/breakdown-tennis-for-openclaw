@@ -102,11 +102,11 @@ export default function Sidebar() {
                   href={item.href}
                   className={`flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-colors ${
                     isActive
-                      ? 'bg-orange-500/20 text-orange-400 border-l-4 border-orange-500'
+                      ? 'bg-orange-500/30 text-orange-200 border-l-4 border-orange-500'
                       : 'text-gray-300 hover:bg-gray-800 hover:text-white'
                   }`}
                 >
-                  <span className={`${isActive ? 'text-orange-400' : 'text-gray-400'}`}>
+                  <span className={`${isActive ? 'text-orange-200' : 'text-gray-400'}`}>
                     {item.icon}
                   </span>
                   <span className="font-medium">{item.name}</span>

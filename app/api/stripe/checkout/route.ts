@@ -11,7 +11,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    const { matchId, analysisType, priceId, quantity = 1 } = await req.json()
+    const { videoId, analysisType, priceId, quantity = 1 } = await req.json()
 
     // Validate analysis type and price
     const priceConfig = {
@@ -20,21 +20,36 @@ export async function POST(req: NextRequest) {
     }
 
     const selectedPriceId = priceId || priceConfig[analysisType as keyof typeof priceConfig]
-    
+
     if (!selectedPriceId) {
-      return NextResponse.json({ error: 'Invalid analysis type' }, { status: 400 })
+      return NextResponse.json({ error: 'Invalid analysis type or price ID missing' }, { status: 400 })
     }
 
-    // Create order in database
+    // Fetch video from database to get the public URL
+    const { data: video, error: videoError } = await supabase
+      .from('videos')
+      .select('file_path')
+      .eq('id', videoId)
+      .eq('user_id', user.id) // Ensure ownership
+      .single()
+
+    if (videoError || !video) {
+      console.error('Video fetch error:', videoError)
+      return NextResponse.json({ error: 'Video not found or access denied' }, { status: 404 })
+    }
+
+    // Build public URL for the video
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
+    const videoUrl = `${supabaseUrl}/storage/v1/object/public/tennis-videos/${video.file_path}`
+
+    // Create order in database - matching Supabase schema
     const { data: order, error: orderError } = await supabase
       .from('orders')
       .insert({
         user_id: user.id,
-        match_id: matchId,
-        analysis_type: analysisType,
+        video_url: videoUrl,
+        price_id: selectedPriceId,
         status: 'pending',
-        amount: analysisType === 'basic' ? 1500 : 3500, // in cents
-        currency: 'eur',
       })
       .select()
       .single()
@@ -42,6 +57,23 @@ export async function POST(req: NextRequest) {
     if (orderError) {
       console.error('Order creation error:', orderError)
       return NextResponse.json({ error: 'Failed to create order' }, { status: 500 })
+    }
+
+    // Create analysis record linking order only
+    // Note: video_id column not yet present in Supabase schema, using order_id only
+    const { error: analysisError } = await supabase
+      .from('analyses')
+      .insert({
+        user_id: user.id,
+        order_id: order.id,
+        type: analysisType,
+        status: 'pending',
+      })
+
+    if (analysisError) {
+      console.error('Analysis creation error:', analysisError)
+      // Don't fail the checkout if analysis creation fails, but log it
+      // Consider implementing retry logic or manual fix later
     }
 
     // Create Stripe Checkout session
@@ -58,22 +90,14 @@ export async function POST(req: NextRequest) {
       cancel_url: `${req.nextUrl.origin}/dashboard/payments/cancel`,
       metadata: {
         userId: user.id,
-        matchId,
-        analysisType,
+        videoId: videoId,
+        analysisType: analysisType || 'unknown',
         orderId: order.id,
       },
       customer_email: user.email,
       billing_address_collection: 'required',
       shipping_address_collection: {
         allowed_countries: ['FR', 'BE', 'CH', 'LU', 'MC'], // European countries
-      },
-      custom_text: {
-        submit: {
-          message: 'Votre analyse sera traitée sous 24h après le paiement.',
-        },
-      },
-      consent_collection: {
-        terms_of_service: 'required',
       },
       allow_promotion_codes: true,
     })

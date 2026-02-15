@@ -28,11 +28,11 @@ export default function AnalysisHistory({ analyses }: AnalysisHistoryProps) {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'completed': return 'bg-green-500/20 text-green-400'
-      case 'processing': return 'bg-blue-500/20 text-blue-400'
-      case 'pending': return 'bg-orange-500/20 text-orange-400'
-      case 'failed': return 'bg-red-500/20 text-red-400'
-      default: return 'bg-gray-500/20 text-gray-400'
+      case 'completed': return 'bg-green-500/30 text-green-300'
+      case 'processing': return 'bg-blue-500/30 text-blue-300'
+      case 'pending': return 'bg-orange-500/40 text-orange-200'
+      case 'failed': return 'bg-red-500/30 text-red-300'
+      default: return 'bg-gray-500/30 text-gray-300'
     }
   }
 
