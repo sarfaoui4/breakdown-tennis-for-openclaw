@@ -1,6 +1,3 @@
-// 📥 Landing page - Lead Magnet gratuit
-// Fichier: app/lead/page.tsx
-
 'use client';
 
 import { useState } from 'react';
@@ -16,7 +13,6 @@ export default function LeadMagnetPage() {
     setMessage(null);
 
     try {
-      // Appel API pour générer le PDF avec l'email
       const response = await fetch(`/api/lead/download?email=${encodeURIComponent(email)}`);
       
       if (!response.ok) {
@@ -24,10 +20,7 @@ export default function LeadMagnetPage() {
         throw new Error(errorData.error || 'Erreur lors du téléchargement');
       }
 
-      // Récupérer le blob PDF
       const blob = await response.blob();
-      
-      // Créer un lien de téléchargement
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
@@ -37,7 +30,7 @@ export default function LeadMagnetPage() {
       window.URL.revokeObjectURL(url);
       document.body.removeChild(a);
 
-      setMessage({ type: 'success', text: 'PDF téléchargé avec succès ! Vérifie ton dossier Téléchargements.' });
+      setMessage({ type: 'success', text: 'PDF téléchargé avec succès !' });
       setEmail('');
     } catch (error: any) {
       setMessage({ type: 'error', text: error.message });
@@ -48,7 +41,6 @@ export default function LeadMagnetPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-950 text-white">
-      {/* Navigation */}
       <nav className="bg-gray-900 border-b border-gray-800 px-6 py-4">
         <div className="flex items-center justify-between max-w-6xl mx-auto">
           <div className="flex items-center gap-4">
@@ -63,24 +55,18 @@ export default function LeadMagnetPage() {
         </div>
       </nav>
 
-      {/* Hero - Guide PDF */}
       <main className="max-w-4xl mx-auto px-6 py-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          
-          {/* Colonne gauche: Texte + formulaire */}
           <div>
             <div className="inline-flex items-center gap-2 bg-orange-500/20 text-orange-400 px-4 py-2 rounded-full text-sm font-medium mb-6">
               <span>📖</span> Guide Gratuit
             </div>
-            
             <h1 className="text-5xl font-bold mb-6 leading-tight">
               Les <span className="text-orange-400">10 erreurs</span> qui bloquent ta progression au tennis
             </h1>
-            
             <p className="text-xl text-gray-300 mb-8 leading-relaxed">
-              Découvre les fautes techniques les plus courantes (et comment les corriger) pour passer au niveau supérieur — que tu sois débutant ou intermédiaire.
+              Découvre les fautes techniques les plus courantes (et comment les corriger) pour passer au niveau supérieur.
             </p>
-
             <ul className="space-y-4 mb-8 text-gray-300">
               <li className="flex items-start gap-3">
                 <span className="text-green-400 mt-1">✓</span>
@@ -99,11 +85,9 @@ export default function LeadMagnetPage() {
                 <span>100% gratuit — pas de carte bancaire</span>
               </li>
             </ul>
-
-            {/* Formulaire email */}
             <div className="bg-gray-800 border border-gray-700 rounded-xl p-6">
               <h3 className="text-xl font-bold mb-4">Télécharge ton guide</h3>
-              <form id="lead-form" className="space-y-4">
+              <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
                   <label htmlFor="email" className="block text-sm font-medium text-gray-400 mb-2">
                     Ton email
@@ -115,6 +99,8 @@ export default function LeadMagnetPage() {
                     required
                     placeholder="exemple@email.com"
                     className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
                 <button
@@ -129,8 +115,15 @@ export default function LeadMagnetPage() {
                 Pas de spam. Désabonne-toi à tout moment.
               </p>
             </div>
-
-            {/* Social proof */}
+            {message && (
+              <div className={`fixed top-4 right-4 max-w-sm p-4 rounded-lg ${
+                message.type === 'success' 
+                  ? 'bg-green-900 border border-green-700 text-green-100' 
+                  : 'bg-red-900 border border-red-700 text-red-100'
+              }`}>
+                {message.text}
+              </div>
+            )}
             <div className="mt-8 flex items-center gap-4 text-gray-400 text-sm">
               <div className="flex -space-x-2">
                 <div className="w-8 h-8 rounded-full bg-orange-500 border-2 border-gray-900 flex items-center justify-center text-xs">P</div>
@@ -140,11 +133,8 @@ export default function LeadMagnetPage() {
               <span>+250 joueurs déjà téléchargés</span>
             </div>
           </div>
-
-          {/* Colonne droite: Aperçu PDF */}
           <div className="lg:pl-8">
             <div className="sticky top-8">
-              {/* Mockup PDF */}
               <div className="bg-gray-800 border border-gray-700 rounded-2xl p-6 shadow-2xl transform rotate-2 hover:rotate-0 transition-transform duration-300">
                 <div className="bg-gray-900 rounded-lg p-8 min-h-[600px]">
                   <div className="border-b border-gray-700 pb-4 mb-6">
@@ -162,8 +152,6 @@ export default function LeadMagnetPage() {
                     </h1>
                     <p className="text-gray-400">Par l'équipe Tennis Breakdown</p>
                   </div>
-
-                  {/* Contenu simulé */}
                   <div className="space-y-4 text-gray-300">
                     <div>
                       <h3 className="text-orange-400 font-bold mb-2">Erreur #1 - La prise de raquette trop serrée</h3>
@@ -184,7 +172,6 @@ export default function LeadMagnetPage() {
                       </p>
                     </div>
                   </div>
-
                   <div className="mt-6 pt-4 border-t border-gray-700">
                     <p className="text-center text-gray-500 text-sm italic">
                       ... + 7 autres erreurs + exercices corrigés à l'intérieur
@@ -192,8 +179,6 @@ export default function LeadMagnetPage() {
                   </div>
                 </div>
               </div>
-
-              {/* Badge */}
               <div className="text-center mt-6">
                 <span className="bg-green-500/20 text-green-400 px-4 py-2 rounded-full text-sm font-medium">
                   ✅ PDF de 15 pages — Format A4
@@ -202,25 +187,11 @@ export default function LeadMagnetPage() {
             </div>
           </div>
         </div>
+      </main>
 
-            {/* Footer */}
-            <div className="text-center mt-16 pt-8 border-t border-gray-800 text-gray-400 text-sm">
-              <p>© 2026 Tennis Breakdown. Guide gratuit pour les joueurs de tennis passionnés.</p>
-            </div>
-          </main>
-
-          {/* Affichage des messages */}
-          {message && (
-            <div className={`fixed top-4 right-4 max-w-sm p-4 rounded-lg ${
-              message.type === 'success' 
-                ? 'bg-green-900 border border-green-700 text-green-100' 
-                : 'bg-red-900 border border-red-700 text-red-100'
-            }`}>
-              {message.text}
-            </div>
-          )}
-        </div>
+      <div className="text-center mt-16 pt-8 border-t border-gray-800 text-gray-400 text-sm">
+        <p>© 2026 Tennis Breakdown. Guide gratuit pour les joueurs de tennis passionnés.</p>
       </div>
-    )
-  }
+    </div>
+  );
 }

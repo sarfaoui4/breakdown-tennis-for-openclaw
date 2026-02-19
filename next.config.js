@@ -1,12 +1,14 @@
 /** @type {import('next').NextConfig} */
+const path = require('path');
+
 const nextConfig = {
   reactStrictMode: true,
   typescript: {
-    // !! WARNING !!
-    // Dangerously allow production builds to successfully complete even if
-    // your project has type errors.
-    // !! WARNING !!
     ignoreBuildErrors: true,
+  },
+  webpack: (config) => {
+    config.resolve.alias['@'] = path.resolve(__dirname);
+    return config;
   },
 }
 
