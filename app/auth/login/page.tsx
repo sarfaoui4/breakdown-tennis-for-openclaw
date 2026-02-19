@@ -1,109 +1,87 @@
-'use client'
+'use client';
 
-import { useState } from 'react'
-import { createClient } from '../../lib/supabase/client'
-import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 export default function LoginPage() {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
-  const router = useRouter()
-  const supabase = createClient()
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const router = useRouter();
+
+  // Charger Supabase uniquement côté client
+  const supabase = (() => {
+    if (typeof window !== 'undefined') {
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      const { createClient } = require('@/lib/supabase/client');
+      return createClient();
+    }
+    return null;
+  })();
 
   const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setLoading(true)
-    setError(null)
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
 
     try {
+      if (!supabase) throw new Error('Client non initialisé');
       const { error } = await supabase.auth.signInWithPassword({
         email,
         password,
-      })
+      });
 
-      if (error) throw error
+      if (error) throw error;
 
-      router.push('/dashboard')
-      router.refresh()
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Une erreur est survenue')
+      router.push('/dashboard');
+      router.refresh();
+    } catch (error: any) {
+      setError(error.message);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-900">
-      <div className="bg-gray-800 p-8 rounded-xl shadow-lg w-full max-w-md border border-gray-700">
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-white">Connexion</h1>
-          <p className="text-gray-300 mt-2">Accédez à votre compte Tennis Breakdown</p>
-        </div>
-
-        {error && (
-          <div className="bg-red-900/30 text-red-200 p-4 rounded-lg mb-6 border border-red-800">
-            {error}
-          </div>
-        )}
-
-        <form onSubmit={handleLogin} className="space-y-6">
+    <div className="min-h-screen flex items-center justify-center bg-gray-900 text-white">
+      <div className="max-w-md w-full space-y-8 p-8 bg-gray-800 rounded-xl">
+        <h2 className="text-3xl font-bold text-center">Connexion</h2>
+        <form onSubmit={handleLogin} className="space-y-4">
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
-              Adresse email
-            </label>
+            <label className="block text-sm font-medium mb-1">Email</label>
             <input
-              id="email"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-700 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent bg-gray-900 text-white"
-              placeholder="votre@email.com"
               required
+              className="w-full px-3 py-2 bg-gray-700 rounded border border-gray-600 focus:outline-none focus:ring-2 focus:ring-orange-500"
             />
           </div>
-
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-300 mb-2">
-              Mot de passe
-            </label>
+            <label className="block text-sm font-medium mb-1">Mot de passe</label>
             <input
-              id="password"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-700 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent bg-gray-900 text-white"
-              placeholder="••••••••"
               required
+              className="w-full px-3 py-2 bg-gray-700 rounded border border-gray-600 focus:outline-none focus:ring-2 focus:ring-orange-500"
             />
           </div>
-
+          {error && <p className="text-red-400 text-sm">{error}</p>}
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-orange-600 hover:bg-orange-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full py-2 bg-orange-500 hover:bg-orange-600 rounded font-medium disabled:opacity-50"
           >
-            {loading ? 'Connexion en cours...' : 'Se connecter'}
+            {loading ? 'Connexion...' : 'Se connecter'}
           </button>
         </form>
-
-        <div className="mt-8 text-center space-y-4">
-          <p className="text-gray-300">
-            Pas encore de compte ?{' '}
-            <Link href="/auth/register" className="text-orange-500 hover:text-orange-400 font-semibold">
-              S&apos;inscrire
-            </Link>
-          </p>
-          <Link
-            href="/"
-            className="inline-block text-gray-500 hover:text-gray-400 text-sm"
-          >
-            ← Retour à l&apos;accueil
-          </Link>
-        </div>
+        <p className="text-center text-gray-400">
+          Pas de compte ? <Link href="/auth/register" className="text-orange-400 hover:underline">S&apos;inscrire</Link>
+        </p>
       </div>
     </div>
-  )
+  );
 }

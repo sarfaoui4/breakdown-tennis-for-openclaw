@@ -3,7 +3,7 @@
 import { User } from '@supabase/supabase-js'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { createClient } from '../../lib/supabase/client'
+import { createClient } from '@/lib/supabase/client'
 
 interface DashboardNavbarProps {
   user: User

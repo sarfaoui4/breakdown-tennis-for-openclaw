@@ -1,7 +1,7 @@
 // Admin - Mark analysis as completed
 // Fichier: app/admin/mark-completed/route.ts
 
-import { createClient } from '../../lib/supabase/server'
+import { createClient } from '@/lib/supabase/server'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function POST(req: NextRequest) {

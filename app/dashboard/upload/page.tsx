@@ -1,7 +1,7 @@
 // 📤 Dashboard - Page d'upload de vidéo
 // Fichier: app/dashboard/upload/page.tsx
 
-import { createClient } from '../../lib/supabase/server'
+import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import UploadForm from './components/UploadForm'
 
