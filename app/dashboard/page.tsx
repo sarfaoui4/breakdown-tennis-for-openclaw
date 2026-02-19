@@ -1,7 +1,7 @@
 // 📦 VERSION MINIMALE - Dashboard simplifié
 // Fichier: app/dashboard/page.tsx (remplacement)
 
-import { createClient } from '@/lib/supabase/server'
+import { createClient } from '../../lib/supabase/server'
 import { redirect } from 'next/navigation'
 import PaymentSection from './components/PaymentSection'
 import { Suspense } from 'react'

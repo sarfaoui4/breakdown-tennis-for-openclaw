@@ -1,7 +1,7 @@
 // 📤 API Route pour upload vidéo - Tennis Breakdown
 // Fichier: app/api/upload/route.ts
 
-import { createClient } from '@/lib/supabase/server'
+import { createClient } from '../../lib/supabase/server'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function POST(request: NextRequest) {

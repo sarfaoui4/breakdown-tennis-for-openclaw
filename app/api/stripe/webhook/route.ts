@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import Stripe from 'stripe'
-import { stripe } from '@/lib/stripe/server'
-import { createClient } from '@/lib/supabase/server'
+import { stripe } from '../../lib/stripe/server'
+import { createClient } from '../../lib/supabase/server'
 import { headers } from 'next/headers'
 
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!

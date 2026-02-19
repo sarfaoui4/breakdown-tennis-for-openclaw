@@ -1,7 +1,7 @@
 // 📊 Dashboard - Page Mes Analyses
 // Fichier: app/dashboard/analyses/page.tsx
 
-import { createClient } from '@/lib/supabase/server'
+import { createClient } from '../../lib/supabase/server'
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
 

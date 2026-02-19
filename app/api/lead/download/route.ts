@@ -3,7 +3,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import PDFDocument from 'pdfkit';
-import { leadMagnetContent } from '@/lib/lead-magnet-content';
+import { leadMagnetContent } from '../../../lib/lead-magnet-content';
 
 export async function GET(request: NextRequest) {
   try {
