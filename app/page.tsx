@@ -4,6 +4,8 @@
 export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-950 text-white">
+      {/* Deployment marker */}
+      <span id="deploy-marker" className="hidden">v2025-02-21-ui-fix</span>
       {/* Navigation */}
       <nav className="bg-gray-900 border-b border-gray-800 px-6 py-4">
         <div className="flex items-center justify-between">
