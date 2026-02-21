@@ -2,7 +2,7 @@
 
 import { User } from '@supabase/supabase-js'
 import { useState, useEffect } from 'react'
-import { createClient } from '@/lib/supabase/client'
+import { createClient } from '../../lib/supabase/client'
 import AdminSidebar from './AdminSidebar'
 import SubmissionsTable from './SubmissionsTable'
 import AnalyticsDashboard from './AnalyticsDashboard'
