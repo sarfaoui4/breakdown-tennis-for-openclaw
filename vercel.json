@@ -3,10 +3,7 @@
   "builds": [
     {
       "src": "projects/tennis-breakdown/package.json",
-      "use": "@vercel/next",
-      "config": {
-        "distDir": "projects/tennis-breakdown/.next"
-      }
+      "use": "@vercel/next"
     }
   ],
   "routes": [
