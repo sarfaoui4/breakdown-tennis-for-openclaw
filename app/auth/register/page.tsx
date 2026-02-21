@@ -73,7 +73,7 @@ export default function RegisterPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-2 bg-orange-500 hover:bg-orange-600 rounded font-medium disabled:opacity-50"
+            className="w-full py-2 bg-orange-500 text-white hover:bg-orange-600 rounded font-medium disabled:opacity-50"
           >
             {loading ? 'Inscription...' : "S'inscrire"}
           </button>
