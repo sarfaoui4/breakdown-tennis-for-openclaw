@@ -16,6 +16,8 @@ const nextConfig = {
     config.resolve.alias['@'] = path.resolve(__dirname);
     return config;
   },
+  // Force new build ID to avoid cache issues
+  generateBuildId: () => `build-${Date.now()}`,
 }
 
 module.exports = nextConfig
