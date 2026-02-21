@@ -17,7 +17,7 @@ export default function Home() {
             <a href="/auth/login" className="px-4 py-2 text-gray-300 hover:text-white transition-colors">
               Connexion
             </a>
-            <a href="/auth/register" className="px-4 py-2 bg-orange-500 hover:bg-orange-600 rounded-lg font-medium transition-colors">
+            <a href="/auth/register" className="px-4 py-2 bg-orange-500 text-white hover:bg-orange-600 rounded-lg font-medium transition-colors">
               Inscription
             </a>
           </div>
@@ -34,7 +34,7 @@ export default function Home() {
             Envoyez votre vidéo, recevez une analyse professionnelle avec conseils personnalisés pour améliorer votre jeu.
           </p>
           <div className="flex gap-4 justify-center">
-            <a href="/auth/register" className="px-8 py-4 bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl text-lg font-semibold hover:from-orange-600 hover:to-orange-700 transition-all">
+            <a href="/auth/register" className="px-8 py-4 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-xl text-lg font-semibold hover:from-orange-600 hover:to-orange-700 transition-all">
               Essayer gratuitement
             </a>
             <a href="#pricing" className="px-8 py-4 border border-gray-700 rounded-xl text-lg font-semibold hover:bg-gray-800 transition-colors">
