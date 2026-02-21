@@ -36,7 +36,7 @@ export default function Home() {
             Analyse détaillée de vos <span className="text-orange-400">matchs de tennis</span>
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-10">
-            Envoyez votre vidéo, recevez une analyse professionnelle avec conseils personnalisés pour améliorer votre jeu.
+            Envoyez votre vidéo, recevez une analyse professionnelle avec conseils personnalisés pour améliorer votre jeu. <strong style={{color: '#10b981'}}>NOUVELLE VERSION</strong>
           </p>
           <div className="flex gap-4 justify-center">
             <a href="/auth/register" className="px-8 py-4 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-xl text-lg font-semibold hover:from-orange-600 hover:to-orange-700 transition-all">
