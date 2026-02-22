@@ -15,5 +15,8 @@
       "src": "/(.*)",
       "dest": "projects/tennis-breakdown/$1"
     }
-  ]
+  ],
+  "env": {
+    "FORCE_REBUILD": "2026-02-22-13h05"
+  }
 }
