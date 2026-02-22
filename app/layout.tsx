@@ -6,9 +6,6 @@ import './globals.css'
 export const metadata = {
   title: 'Tennis Breakdown',
   description: 'Analyse professionnelle de vos matchs de tennis',
-  verification: {
-    google: '7A1sx6d7ifr4E4lqq-FJKNxIBeSvJswtA-C0WD6yWaU',
-  },
 }
 
 export default function RootLayout({
@@ -18,6 +15,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="fr">
+      <head>
+        <meta name="google-site-verification" content="7A1sx6d7ifr4E4lqq-FJKNxIBeSvJswtA-C0WD6yWaU" />
+      </head>
       <body className="bg-gray-900 text-white">
         {children}
       </body>
