@@ -5,5 +5,11 @@
       "src": "projects/tennis-breakdown/package.json",
       "use": "@vercel/next"
     }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "projects/tennis-breakdown/$1"
+    }
   ]
 }
