@@ -1,7 +1,31 @@
-// 📦 VERSION MINIMALE - Page d'accueil simplifiée
-// Fichier: app/page.tsx (remplacement)
+'use client';
+
+import { useState } from 'react';
 
 export default function Home() {
+  const [loading, setLoading] = useState<'basic' | 'premium' | null>(null);
+
+  const handleCheckout = async (offer: 'basic' | 'premium') => {
+    setLoading(offer);
+    try {
+      const res = await fetch('/api/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ offer, userId: 'guest' }),
+      });
+      const data = await res.json();
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        alert('Erreur: ' + (data.error || 'unknown'));
+        setLoading(null);
+      }
+    } catch (e) {
+      alert('Erreur réseau');
+      setLoading(null);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-950 text-white">
       {/* Deployment marker */}
@@ -97,9 +121,13 @@ export default function Home() {
                 <li>✅ Conseils d'amélioration</li>
                 <li>⏱️ Délai: 24-48h</li>
               </ul>
-              <a href="/auth/register" className="block w-full py-3 bg-gradient-to-r from-green-600 to-green-700 rounded-lg text-center font-semibold hover:from-green-700 hover:to-green-800 transition-all">
-                Commencer
-              </a>
+              <button
+                onClick={() => handleCheckout('basic')}
+                disabled={loading === 'basic'}
+                className="block w-full py-3 bg-gradient-to-r from-green-600 to-green-700 rounded-lg text-center font-semibold hover:from-green-700 hover:to-green-800 transition-all disabled:opacity-50"
+              >
+                {loading === 'basic' ? 'Redirection...' : 'Commencer'}
+              </button>
             </div>
             
             <div className="bg-gradient-to-r from-gray-900 to-gray-800 border border-orange-500 rounded-2xl p-8">
@@ -115,9 +143,13 @@ export default function Home() {
                 <li>✅ Support prioritaire</li>
                 <li>⏱️ Délai: 12-24h</li>
               </ul>
-              <a href="/auth/register" className="block w-full py-3 bg-gradient-to-r from-orange-500 to-orange-600 rounded-lg text-center font-semibold hover:from-orange-600 hover:to-orange-700 transition-all">
-                Choisir Premium
-              </a>
+              <button
+                onClick={() => handleCheckout('premium')}
+                disabled={loading === 'premium'}
+                className="block w-full py-3 bg-gradient-to-r from-orange-500 to-orange-600 rounded-lg text-center font-semibold hover:from-orange-600 hover:to-orange-700 transition-all disabled:opacity-50"
+              >
+                {loading === 'premium' ? 'Redirection...' : 'Choisir Premium'}
+              </button>
             </div>
           </div>
         </div>
@@ -129,5 +161,5 @@ export default function Home() {
         </div>
       </main>
     </div>
-  )
+  );
 }
