@@ -1,0 +1,50 @@
+
+> breakdown-tennis-for-openclaw@0.1.0 build
+> next build
+
+  ▲ Next.js 14.2.35
+  - Environments: .env.local
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully
+   Skipping validation of types
+   Linting ...
+   Collecting page data ...
+   Generating static pages (0/21) ...
+   Generating static pages (5/21) 
+   Generating static pages (10/21) 
+   Generating static pages (15/21) 
+ ✓ Generating static pages (21/21)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                              Size     First Load JS
+┌ ○ /                                    138 B          87.5 kB
+├ ○ /_not-found                          873 B          88.2 kB
+├ ƒ /admin                               178 B          96.2 kB
+├ ƒ /admin/mark-completed                0 B                0 B
+├ ƒ /api/stripe/checkout                 0 B                0 B
+├ ƒ /api/stripe/webhook                  0 B                0 B
+├ ƒ /api/upload                          0 B                0 B
+├ ƒ /api/video/upload                    0 B                0 B
+├ ƒ /auth/callback                       0 B                0 B
+├ ○ /auth/login                          1.35 kB         152 kB
+├ ○ /auth/register                       1.58 kB         153 kB
+├ ○ /auth/verify-email                   178 B          96.2 kB
+├ ƒ /dashboard                           1.26 kB        88.6 kB
+├ ƒ /dashboard/analyses                  178 B          96.2 kB
+├ ƒ /dashboard/payments                  1.65 kB        97.7 kB
+├ ƒ /dashboard/payments/cancel           1.41 kB        97.4 kB
+├ ƒ /dashboard/payments/success          1.64 kB        97.7 kB
+└ ƒ /dashboard/upload                    1.74 kB        89.1 kB
++ First Load JS shared by all            87.3 kB
+  ├ chunks/117-07cd2ade56352db2.js       31.7 kB
+  ├ chunks/fd9d1056-cf48984c1108c87a.js  53.6 kB
+  └ other shared chunks (total)          1.95 kB
+
+
+ƒ Middleware                             74.3 kB
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+

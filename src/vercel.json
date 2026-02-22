@@ -5,14 +5,18 @@
       "src": "package.json",
       "use": "@vercel/next",
       "config": {
-        "root": "src"
+        "root": "projects/tennis-breakdown",
+        "submodules": true
       }
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "src/$1"
+      "dest": "projects/tennis-breakdown/$1"
     }
-  ]
+  ],
+  "env": {
+    "FORCE_REBUILD": "2026-02-22-13h05"
+  }
 }

@@ -1,0 +1,226 @@
+{
+  "meta": {
+    "version": "1.0",
+    "generated": "2025-02-13T17:45:00.000Z",
+    "totalQuestions": 28,
+    "source": "faq.md"
+  },
+  "welcome": "Bonjour ! 👋 Bienvenue chez Tennis Breakdown. Je suis votre assistant virtuel. Comment puis-vous vous aider aujourd'hui ?",
+  "menu": [
+    { "id": "upload", "label": "📤 Upload vidéo", "icon": "📤" },
+    { "id": "payment", "label": "💳 Paiement & tarifs", "icon": "💳" },
+    { "id": "delays", "label": "⏱️ Délais analyse", "icon": "⏱️" },
+    { "id": "technical", "label": "🔧 Support technique", "icon": "🔧" },
+    { "id": "general", "label": "❓ Autres questions", "icon": "❓" }
+  ],
+  "categories": [
+    {
+      "id": "upload",
+      "name": "Upload vidéo",
+      "icon": "📤",
+      "description": "Questions sur l'envoi de votre vidéo",
+      "questions": [
+        {
+          "id": "upload_1",
+          "question": "Comment uploader ma vidéo ?",
+          "answer": "Vous pouvez uploader votre vidéo via notre formulaire sécurisé dans votre espace client.\n\n**Procédure :**\n1. Connectez-vous à votre espace client\n2. Cliquez sur « Mes Analyses » > « Nouvelle Analyse »\n3. Glissez-déposez votre fichier ou cliquez pour parcourir\n\n⚠️ **Formats acceptés :** MP4, MOV, AVI (max 2GB)\n⏱️ **Durée recommandée :** 30min-2h pour un set simple",
+          "keywords": ["uploader", "envoyer", "vidéo", "fichier", "formulaire", "espace client"]
+        },
+        {
+          "id": "upload_2",
+          "question": "Quels formats de vidéo sont acceptés ?",
+          "answer": "Nous acceptons les formats suivants :\n\n• **MP4** (H.264) - recommandé\n• **MOV**\n• **AVI**\n\n**Exigences :**\n• Résolution minimale : 720p\n• Taille maximale : 2GB\n• Pas de DRM\n\nSi votre vidéo est plus grande, vous pouvez la compresser ou la découper en parties.",
+          "keywords": ["formats", "mp4", "mov", "avi", "taille", "2gb", "résolution"]
+        },
+        {
+          "id": "upload_3",
+          "question": "Quelle durée de vidéo envoyer pour une analyse optimale ?",
+          "answer": "Pour une analyse de qualité optimale :\n\n• **Set simple** : 30-45 minutes\n• **Match complet** (3 sets) : 1h30-2h\n\n**Nos recommandations :**\n• Filmer en plan large pour capturer tous les coups\n• Évitez les zooms excessifs\n• Positionnez la caméra latéralement (vue de l'arrière ou de face)\n• Assurez un éclairage suffisant",
+          "keywords": ["durée", "temps", "longueur", "set", "match", "optimale", "recommandation"]
+        },
+        {
+          "id": "upload_4",
+          "question": "Mon upload a échoué, que faire ?",
+          "answer": "Vérifiez les points suivants :\n\n1. **Connexion internet** stable (pas de coupures)\n2. **Taille du fichier** (max 2GB)\n3. **Format** (MP4 conseillé)\n\n**Solutions :**\n• Réessayer l'upload\n• Utiliser notre outil de compression intégré\n• Découper la vidéo en fichiers plus petits\n\nSi le problème persiste, contactez le support technique avec un screenshot de l'erreur.",
+          "keywords": ["échoué", "erreur", "problème", "échec", "connection", "internet", "compression"]
+        },
+        {
+          "id": "upload_5",
+          "question": "Puis-je annuler ou modifier mon upload ?",
+          "answer": "Oui, sous conditions :\n\n• **Délai** : dans les 10 minutes suivant l'upload\n• **Lieu** : depuis votre espace client\n• **Après 10 min** : l'analyse démarre automatiquement\n\nContactez-nous rapidement (via chat ou email) si vous avez besoin d'annulation urgente.",
+          "keywords": ["annuler", "modifier", "supprimer", "changer", "upload", "10 minutes"]
+        }
+      ]
+    },
+    {
+      "id": "payment",
+      "name": "Paiement",
+      "icon": "💳",
+      "description": "Tarifs, moyens de paiement, factures et remboursements",
+      "questions": [
+        {
+          "id": "payment_1",
+          "question": "Quels sont vos tarifs ?",
+          "answer": "Nos offres (prix TTC) :\n\n• **Analyse Set Simple** : 29,99€\n• **Analyse Match Complet** : 49,99€\n• **Pack 3 Analyses** : 69,99€ (économie 30%)\n• **Abonnement Mensuel** : 39,99€/mois (analyses illimitées)\n• **Option Urgent 24h** : +15€ par analyse\n\nPas de frais cachés. Pas d'engagement pour les packs.",
+          "keywords": ["tarifs", "prix", "coût", "abonnement", "pack", "set", "match"]
+        },
+        {
+          "id": "payment_2",
+          "question": "Quels moyens de paiement acceptez-vous ?",
+          "answer": "Nous acceptons :\n\n• **Cartes bancaires** : Visa, Mastercard, American Express\n• **PayPal**\n• **Virement bancaire** (délai 2-3 jours ouvrés)\n\nTous les paiements sont sécurisés (SSL 256-bit). Nous utilisons Stripe et PayPal. Vos données bancaires ne sont pas stockées sur nos serveurs.",
+          "keywords": ["paiement", "moyens", "carte", "paypal", "virement", "stripe"]
+        },
+        {
+          "id": "payment_3",
+          "question": "Le paiement est-il sécurisé ?",
+          "answer": "Absolument. Nous utilisons des solutions de paiement certifiées :\n\n✅ **Cryptage bancaire** SSL 256-bit\n✅ **Conformité PCI-DSS** (standard industriel)\n✅ **Aucune donnée bancaire stockée**\n✅ **3D Secure** disponible\n\nPas de fraude constatée depuis notre lancement.",
+          "keywords": ["sécurisé", "sécurité", "crypté", "pci-dss", "3d secure", "protection"]
+        },
+        {
+          "id": "payment_4",
+          "question": "Puis-je obtenir une facture ?",
+          "answer": "Oui, automatiquement :\n\n• **Email** : envoyée immédiatement après paiement\n• **Espace client** : rubrique « Historique » > « Factures »\n• **Format** : PDF téléchargeable\n• **Personnalisation** : contactez support@ pour facture entreprise (TVA, SIRET)\n\nLes factures sont conservées 5 ans.",
+          "keywords": ["facture", "email", "pdf", "télécharger", "historique", "entreprise"]
+        },
+        {
+          "id": "payment_5",
+          "question": "Offrez-vous des remboursements ?",
+          "answer": "Politique de remboursement :\n\n• **Délai** : demande sous 7 jours après réception de l'analyse\n• **Motif** : qualité vidéo insuffisante (non imputable à Tennis Breakdown)\n• **Forme** : remboursement partiel ou crédit pour nouvelle analyse\n• **Frais** : frais de transaction peuvent être retenus (Stripe/PayPal)\n\nAucun remboursement après 7 jours ou si analyse de bonne qualité.",
+          "keywords": ["remboursement", "rembourser", "argent", "annuler", "rétractation", "garantie"]
+        },
+        {
+          "id": "payment_6",
+          "question": "Y a-t-il des frais cachés ?",
+          "answer": "Non. Les prix affichés sont **TTC** (toutes taxes comprises).\n\n• Pas d'abonnement forcé\n• Pas de frais d'activation\n• Pas de frais de résiliation\n• Option urgente clairement indiquée (+15€)\n• Coaching personnalisé en supplément (optionnel)\n\nTransparence totale.",
+          "keywords": ["frais", "cachés", "supplément", "coût", "supplémentaire", "transparence"]
+        }
+      ]
+    },
+    {
+      "id": "delays",
+      "name": "Délais d'analyse",
+      "icon": "⏱️",
+      "description": "Durée de traitement, suivi et accélération",
+      "questions": [
+        {
+          "id": "delays_1",
+          "question": "Combien de temps pour recevoir mon analyse ?",
+          "answer": "Délais standards (hors week-ends et jours fériés) :\n\n• **Analyse Set Simple** : 24 à 48 heures\n• **Analyse Match Complet** : 48 à 72 heures\n• **Urgent 24h** : traitement prioritaire < 24 heures (+15€)\n\nNotification automatique par email quand l'analyse est prête.",
+          "keywords": ["temps", "délai", "recevoir", "analyse", "heures", "jours"]
+        },
+        {
+          "id": "delays_2",
+          "question": "Comment suivre l'avancement de mon analyse ?",
+          "answer": "Dans votre espace client :\n\n**Rubrique « Mes Analyses »** vous montre en temps réel :\n1. ✓ Reçue (vidéo uploadée)\n2. 🔄 En cours d'analyse (IA + expert humain)\n3. ✅ Prête (notification email envoyée)\n4. 📤 Livrée (rapport disponible)\n\nEmails d'avancement aux étapes 2 et 3.",
+          "keywords": ["suivre", "avancement", "statut", "temps réel", "notifications", "étapes"]
+        },
+        {
+          "id": "delays_3",
+          "question": "Que se passe-t-il si je ne reçois pas mon analyse à temps ?",
+          "answer": "Si le délai dépasse 72h (hors option urgente) :\n\n1. **Contactez-nous immédiatement** via chat ou email\n2. **Investigation** : nous vérifions l'état de votre analyse\n3. **Compensation** : remise ou report gratuit sur prochaine analyse\n\nLes retards sont rares (< 2% des cas). Généralement dus à un volume exceptionnel ou problème technique ponctuel.",
+          "keywords": ["retard", "dépassé", "72h", "compensation", "remise", "problème"]
+        },
+        {
+          "id": "delays_4",
+          "question": "Puis-je accélérer le traitement ?",
+          "answer": "Oui, option **« Urgent 24h »** :\n\n• **Coût** : +15€ par analyse\n• **Disponibilité** : au moment de la commande (pas après coup)\n• **Priorité** : votre analyse passe en tête de file\n• **Garantie** : traitement < 24h ouvrées\n• **Limite** : pas disponible week-ends et jours fériés\n\n⚠️ Inutile d'ajouter l'option si votre délai normal (< 48h) vous convient.",
+          "keywords": ["accélérer", "urgent", "rapide", "prioritaire", "24h", "bonus"]
+        },
+        {
+          "id": "delays_5",
+          "question": "À quelle heure de la journée recevrai-je l'analyse ?",
+          "answer": "Nos analystes travaillent 7j/7, de 9h à 21h.\n\n• Vous pouvez recevoir l'analyse à **n'importe quelle heure**\n• Si upload tard le soir (après 20h), le délai de 24-48h commence le **jour suivant** à 9h\n• Week-ends : analyse en cours mais livraison possible\n• Notification email envoyée dès que prête",
+          "keywords": ["heure", "journée", "nuit", "weekend", "délai", "compte"]
+        }
+      ]
+    },
+    {
+      "id": "technical",
+      "name": "Support technique",
+      "icon": "🔧",
+      "description": "Problèmes de connexion, compte, qualité vidéo",
+      "questions": [
+        {
+          "id": "tech_1",
+          "question": "Je n'arrive pas à me connecter à mon compte",
+          "answer": "Vérifiez dans l'ordre :\n\n1. **Email et mot de passe** (casse sensible)\n2. **Vider le cache** des cookies du navigateur\n3. **Navigation privée** (pour tester)\n4. **Mot de passe oublié** : lien en bas de page connexion\n\nSi problème persiste : contactez support avec l'email de votre compte. Nous réinitialiserons manuellement.",
+          "keywords": ["connexion", "connecter", "compte", "mot de passe", "login", "erreur"]
+        },
+        {
+          "id": "tech_2",
+          "question": "Comment modifier mon mot de passe ?",
+          "answer": "Deux méthodes :\n\n• **Mot de passe oublié** : sur page connexion, cliquer « Mot de passe oublié ? » → email de réinitialisation\n• **Paramètres client** : connecté > « Paramètres » > « Sécurité » > « Modifier mot de passe »\n\nMot de passe minimum 8 caractères, avec chiffre et lettre.",
+          "keywords": ["modifier", "changer", "mot de passe", "oublie", "réinitialiser"]
+        },
+        {
+          "id": "tech_3",
+          "question": "Où trouver mes analyses précédentes ?",
+          "answer": "Connectez-vous à votre espace client :\n\n1. Cliquez sur **« Mes Analyses »**\n2. Onglet **« Historique »**\n3. **Filtres** disponibes : par date, type (set/match), statut\n\nChaque ligne montre : date, type, statut, bouton « Voir analyse » pour accéder au rapport complet et vidéo annotée.",
+          "keywords": ["trouver", "historique", "précédentes", "anciennes", "archives", "liste"]
+        },
+        {
+          "id": "tech_4",
+          "question": "Puis-je partager mon analyse avec mon coach ?",
+          "answer": "Oui, options de partage :\n\n• **Lien temporaire** (7 jours) : bouton « Partager » dans l'analyse → copier lien\n• **Email direct** : entrez l'email du coach, message optionnel\n• **Accès complet** : rapport + vidéo annotée + statistiques\n\nLe coach n'a pas besoin de compte Tennis Breakdown. Lien sécurisé.",
+          "keywords": ["partager", "coach", "entraîneur", "envoyer", "lien", "email"]
+        },
+        {
+          "id": "tech_5",
+          "question": "Ma vidéo est de mauvaise qualité, que faire ?",
+          "answer": "Nous tentons toujours l'analyse, mais avec limitations :\n\n• **Qualité médiocre** (flou, sombre, angle mauvais) → précision réduite\n• **Notification** : nous vous alertons si qualité insuffisante\n• **Solution** : crédit pour nouvelle analyse avec vidéo meilleure\n\n**Pour envoyer une meilleure vidéo :**\n• Lumière suffisante\n• Position latérale (vue côté court)\n• Plan large (pas de zoom constant)\n• Stabilité caméra (trépied)\n\nContactez-nous avec votre vidéo en pièce jointe pour évaluation avant suppression.",
+          "keywords": ["mauvaise", "qualité", "flou", "sombre", "améliorer", "crédit", "refaire"]
+        },
+        {
+          "id": "tech_6",
+          "question": "Comment supprimer mon compte et mes données ?",
+          "answer": "Procédure de suppression :\n\n1. Connecté > « Paramètres »\n2. Rubrique « Confidentialité »\n3. Bouton **« Supprimer mon compte »**\n4. Confirmation par email\n\n**Conséquences :**\n• Suppression définitive après 30 jours (période de rétractation)\n• Toutes données personnelles effacées\n• Vidéos supprimées (y compris backups)\n• Aucune récupération possible\n\nVous recevrez un email de confirmation quand ce sera fait.",
+          "keywords": ["supprimer", "effacer", "données", "confidentialité", "rgpd", "compte"]
+        }
+      ]
+    },
+    {
+      "id": "general",
+      "name": "Questions générales",
+      "icon": "❓",
+      "description": "Présentation du service, surfaces, multi-joueurs, débutants",
+      "questions": [
+        {
+          "id": "general_1",
+          "question": "Qu'est-ce que Tennis Breakdown ?",
+          "answer": "Tennis Breakdown est un **service d'analyse vidéo de tennis assisté par IA**.\n\n**Notre offre :**\n• Analyse technique détaillée de votre jeu (coup droit, revers, service, volée, etc.)\n• Statistiques précises (vitesse, placement, efficacité)\n• Recommandations personnalisées pour progresser\n• Rapport complet avec vidéo annotée\n\n**Innovation :** IA + expert humain (diplômé d'État) valide chaque analyse.",
+          "keywords": ["qu'est-ce", "présentation", "service", "analyse", "vidéo", "IA", "intelligence artificielle"]
+        },
+        {
+          "id": "general_2",
+          "question": "Sur quels surfaces votre analyse fonctionne-t-elle ?",
+          "answer": "Notre IA **adapte son analyse à la surface filmée** :\n\n✅ **Terre battue** : effets, glissades, prise de balle tardive\n✅ **Dur** (DecoTurf, Synthétique) : vitesse, rebond\n✅ **Gazon** : vitesse, slice, volées\n✅ **Synthétique** : rebond constant\n\nAucune limitation : envoyez votre vidéo, nous détectons la surface automatiquement.",
+          "keywords": ["surfaces", "terre", "battue", "dur", "gazon", "synthétique", "adaptation"]
+        },
+        {
+          "id": "general_3",
+          "question": "Puis-je analyser des matchs complets avec plusieurs joueurs ?",
+          "answer": "Actuellement, une analyse = **un joueur principal par vidéo**.\n\nPour plusieurs joueurs : envoyez des vidéos séparées pour chacun.\n\n**Nous développons** une option multi-joueurs (sortie prévue Q2 2025) qui permettra d'analyser plusieurs joueurs simultanément dans une même vidéo.",
+          "keywords": ["matchs", "complets", "plusieurs", "joueurs", "multi", "simultané"]
+        },
+        {
+          "id": "general_4",
+          "question": "Votre service convient-il aux débutants ?",
+          "answer": "**Absolument.** L'analyse est adaptée à **tous les niveaux** :\n\n• **Débutants** : focus sur fondamentaux (prise, position, geste de base, équilibre)\n• **Intermédiaires** : corrections techniques, patterns à améliorer\n• **Avancés** : détails fins, stratégie, optimisation\n\nVous précisez votre niveau lors de la commande. L'expert adapte ses commentaires.",
+          "keywords": ["débutants", "niveau", "intermédiaire", "avancé", "pro", "adapté"]
+        },
+        {
+          "id": "general_5",
+          "question": "Comment sont utilisées mes vidéos ?",
+          "answer": "**Engagement de confidentialité :**\n\n• **Usage unique** : uniquement pour votre analyse personnelle\n• **Stockage sécurisé** : chiffrement, accès restreint\n• **Durée** : conservation 90 jours maximum (ou moins sur demande)\n• **IA training** : vos vidéos **ne sont jamais** utilisées pour entraîner nos modèles sans votre consentement explicite\n• **Vos droits** : accès, rectification, suppression RGPD\n\nVoir notre politique de confidentialité complète.",
+          "keywords": ["vidéos", "utilisées", "confidentialité", "rgpd", "stockage", "entraînement", "données"]
+        },
+        {
+          "id": "general_6",
+          "question": "Puis-je obtenir une analyse d'un pro ?",
+          "answer": "Oui ! Nos analystes sont :\n\n• **Diplômés d'État** (Diplôme d'État de moniteur tennis)\n• **Anciens joueurs professionnels** (certains ex-top 100 ATP/WTA)\n• **Expérimentés** : moyenne 10 ans d'enseignement\n\n**Processus :**\n1. IA analyse automatiquement (détails techniques)\n2. Expert humain **valide et enrichit** le rapport\n3. Résultat : qualité d'analyse niveau professionnel\n\nC'est notre **différenciateur** : IA + expert humain.",
+          "keywords": ["pro", "professionnel", "expert", "diplômé", "moniteur", "qualité", "analyse"]
+        }
+      ]
+    }
+  ]
+}
