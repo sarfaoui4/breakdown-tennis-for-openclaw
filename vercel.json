@@ -8,10 +8,6 @@
   ],
   "routes": [
     {
-      "src": "/google620f3bb84650dabf.html",
-      "dest": "/projects/tennis-breakdown/public/google620f3bb84650dabf.html"
-    },
-    {
       "src": "/(.*)",
       "dest": "projects/tennis-breakdown/$1"
     }
