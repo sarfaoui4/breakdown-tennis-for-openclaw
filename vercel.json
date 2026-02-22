@@ -1,7 +1,19 @@
 {
-  "framework": "nextjs",
-  "buildCommand": "npm run build",
-  "outputDirectory": ".next",
-  "installCommand": "npm install",
-  "devCommand": "npm run dev"
+  "version": 2,
+  "builds": [
+    {
+      "src": "projects/tennis-breakdown/package.json",
+      "use": "@vercel/next"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/google620f3bb84650dabf.html",
+      "dest": "/projects/tennis-breakdown/google620f3bb84650dabf"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "projects/tennis-breakdown/$1"
+    }
+  ]
 }
