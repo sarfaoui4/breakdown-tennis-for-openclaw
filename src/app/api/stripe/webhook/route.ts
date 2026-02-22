@@ -1,70 +1,66 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { headers } from 'next/headers';
+import Stripe from 'stripe';
+import { createClient } from '@supabase/supabase-js';
 
-export async function POST(req: NextRequest) {
-  try {
-    // Charger Stripe et Supabase dynamiquement
-    const { stripe } = await import('@/lib/stripe/server');
-    const { createClient } = await import('@/lib/supabase/server');
-    const supabase = await createClient();
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+  apiVersion: '2024-12-18.acacia',
+});
 
-    const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
-    if (!webhookSecret) {
-      console.error('STRIPE_WEBHOOK_SECRET not set');
-      return NextResponse.json({ error: 'Server misconfigured' }, { status: 500 });
-    }
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.SUPABASE_SERVICE_ROLE_KEY!
+);
 
-    const body = await req.text();
-    const signature = headers().get('stripe-signature');
+export async function POST(request: NextRequest) {
+  const body = await request.text();
+  const sig = request.headers.get('stripe-signature');
 
-    if (!signature) {
-      return NextResponse.json({ error: 'Missing signature' }, { status: 400 });
-    }
-
-    let event;
-    try {
-      event = stripe.webhooks.constructEvent(body, signature, webhookSecret);
-    } catch (err: any) {
-      console.error('Webhook signature verification failed:', err);
-      return NextResponse.json({ error: 'Invalid signature' }, { status: 400 });
-    }
-
-    switch (event.type) {
-      case 'checkout.session.completed':
-        const session = event.data.object as Stripe.Checkout.Session;
-        const userId = session.metadata?.userId;
-        const videoId = session.metadata?.videoId;
-        const analysisType = session.metadata?.analysisType;
-
-        if (session.payment_status === 'paid') {
-          // Update video status or create order record
-          if (videoId) {
-            await supabase
-              .from('videos')
-              .update({ status: 'paid', stripe_session_id: session.id as string })
-              .eq('id', videoId)
-              .eq('user_id', userId);
-          }
-
-          // TODO: Create analysis task, send email notification, etc.
-        }
-        break;
-
-      case 'checkout.session.expired':
-        const expiredSession = event.data.object as Stripe.Checkout.Session;
-        await supabase
-          .from('videos')
-          .update({ status: 'pending' })
-          .eq('stripe_session_id', expiredSession.id as string);
-        break;
-
-      default:
-        console.log(`Unhandled event type: ${event.type}`);
-    }
-
-    return NextResponse.json({ received: true });
-  } catch (error: any) {
-    console.error('Webhook error:', error);
-    return NextResponse.json({ error: 'Webhook failed' }, { status: 500 });
+  if (!sig) {
+    return NextResponse.json({ error: 'Missing signature' }, { status: 400 });
   }
+
+  let event: Stripe.Event;
+  try {
+    event = stripe.webhooks.constructEvent(
+      body,
+      sig,
+      process.env.STRIPE_WEBHOOK_SECRET!
+    );
+  } catch (err: any) {
+    console.error('Webhook signature verification failed:', err.message);
+    return NextResponse.json({ error: 'Webhook signature verification failed' }, { status: 400 });
+  }
+
+  // Gérer l'événement checkout.session.completed
+  if (event.type === 'checkout.session.completed') {
+    const session = event.data.object as Stripe.Checkout.Session;
+
+    // Récupérer les metadata
+    const userId = session.metadata?.user_id;
+    const offer = session.metadata?.offer;
+    const videoId = session.metadata?.video_id;
+
+    // Créer un enregistrement dans la table orders
+    const { error: orderError } = await supabase
+      .from('orders')
+      .insert({
+        stripe_session_id: session.id,
+        user_id: userId,
+        offer,
+        video_id: videoId,
+        status: 'paid',
+        amount: session.amount_total,
+        currency: session.currency,
+        payment_intent: session.payment_intent as string,
+      });
+
+    if (orderError) {
+      console.error('Order insert error:', orderError);
+    }
+
+    // TODO: envoyer un email de confirmation (Resend)
+    // await sendConfirmationEmail(userId, session.id, offer);
+  }
+
+  return NextResponse.json({ received: true });
 }
