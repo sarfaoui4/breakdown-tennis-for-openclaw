@@ -1,16 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
+import Stripe from 'stripe';
+import { createClient } from '@/lib/supabase/server';
 
-// Charger stripe dynamiquement pour éviter erreur build (pas d'env au build time)
-const getStripe = async () => {
-  const { stripe } = await import('../../../../lib/stripe/server');
-  return stripe;
-};
+// Créer l'instance Stripe au runtime
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+  apiVersion: '2024-12-18.acacia',
+});
 
 export async function POST(req: NextRequest) {
   try {
-    const { stripe } = await getStripe();
-    const { createClient } = await import('../../../../lib/supabase/server');
-    const supabase = await createClient();
+    const supabase = createClient();
     const { data: { user } } = await supabase.auth.getUser();
 
     if (!user) {
