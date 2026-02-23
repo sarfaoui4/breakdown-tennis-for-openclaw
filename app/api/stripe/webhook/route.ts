@@ -4,8 +4,8 @@ import { headers } from 'next/headers';
 export async function POST(req: NextRequest) {
   try {
     // Charger Stripe et Supabase dynamiquement
-    const { stripe } = await import('../../../../src/lib/stripe/server');
-    const { createClient } = await import('../../../../src/lib/supabase/server');
+    const { stripe } = await import('@/lib/stripe/server');
+    const { createClient } = await import('@/lib/supabase/server');
     const supabase = await createClient();
 
     const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
