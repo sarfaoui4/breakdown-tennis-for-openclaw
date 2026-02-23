@@ -30,20 +30,51 @@ export default function UploadForm({ userId }: UploadFormProps) {
     setUploading(true)
 
     try {
-      const formData = new FormData()
-      formData.append('video', file)
-      formData.append('title', title || 'Analyse tennis')
-      formData.append('description', description || '')
-
-      const response = await fetch('/api/upload', {
+      // 1. Demander une URL signée pour upload direct vers Supabase
+      const signResponse = await fetch('/api/upload/signed-url', {
         method: 'POST',
-        body: formData,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          fileName: file.name,
+          fileType: file.type
+        })
       })
 
-      const data = await response.json()
+      const signData = await signResponse.json()
+      if (!signResponse.ok) {
+        throw new Error(signData.error || 'Échec génération URL signée')
+      }
 
-      if (!response.ok) {
-        throw new Error(data.error || 'Échec de l\'upload')
+      // 2. Upload direct vers Supabase Storage via signed URL
+      const uploadRes = await fetch(signData.signedUrl, {
+        method: 'PUT',
+        body: file,
+        headers: {
+          'Content-Type': file.type
+        }
+      })
+
+      if (!uploadRes.ok) {
+        throw new Error('Upload Supabase échoué')
+      }
+
+      // 3. Enregistrer les métadonnées dans la base
+      const metaResponse = await fetch('/api/upload', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          filePath: signData.filePath,
+          title: title || 'Analyse tennis',
+          description: description || '',
+          fileSize: file.size,
+          fileName: file.name,
+          fileType: file.type
+        })
+      })
+
+      const data = await metaResponse.json()
+      if (!metaResponse.ok) {
+        throw new Error(data.error || 'Échec enregistrement vidéo')
       }
 
       setSuccess(true)

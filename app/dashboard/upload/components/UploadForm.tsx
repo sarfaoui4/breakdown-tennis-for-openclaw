@@ -1,6 +1,3 @@
-// 📤 Upload Form Component
-// Fichier: app/dashboard/components/UploadForm.tsx
-
 'use client'
 
 import { useState } from 'react'
@@ -30,29 +27,61 @@ export default function UploadForm({ userId }: UploadFormProps) {
     setUploading(true)
 
     try {
-      const formData = new FormData()
-      formData.append('video', file)
-      formData.append('title', title || 'Analyse tennis')
-      formData.append('description', description || '')
-
-      const response = await fetch('/api/upload', {
+      // 1. Demander une URL signée pour upload direct vers Supabase
+      const signResponse = await fetch('/api/upload/signed-url', {
         method: 'POST',
-        body: formData,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          fileName: file.name,
+          fileType: file.type
+        })
       })
 
-      const data = await response.json()
+      const signData = await signResponse.json()
+      if (!signResponse.ok) {
+        throw new Error(signData.error || 'Échec génération URL signée')
+      }
 
-      if (!response.ok) {
-        throw new Error(data.error || 'Échec de l\'upload')
+      // 2. Upload direct vers Supabase Storage via signed URL
+      const uploadRes = await fetch(signData.signedUrl, {
+        method: 'PUT',
+        body: file,
+        headers: {
+          'Content-Type': file.type
+        }
+      })
+
+      if (!uploadRes.ok) {
+        throw new Error('Upload Supabase échoué')
+      }
+
+      // 3. Enregistrer les métadonnées dans la base
+      const metaResponse = await fetch('/api/upload', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          filePath: signData.filePath,
+          title: title || 'Analyse tennis',
+          description: description || '',
+          fileSize: file.size,
+          fileName: file.name,
+          fileType: file.type
+        })
+      })
+
+      const metaData = await metaResponse.json()
+      if (!metaResponse.ok) {
+        throw new Error(metaData.error || 'Échec enregistrement vidéo')
       }
 
       setSuccess(true)
       setTitle('')
       setDescription('')
       setFile(null)
-      // Rediriger vers la page de paiement ou vers la liste des vidéos
-      window.location.href = '/dashboard?uploaded=' + data.video.id
+      // Rediriger vers le dashboard avec la nouvelle vidéo
+      window.location.href = '/dashboard?uploaded=' + metaData.video.id
     } catch (err: any) {
+      console.error('Upload error:', err)
       setError(err.message)
     } finally {
       setUploading(false)
@@ -68,7 +97,7 @@ export default function UploadForm({ userId }: UploadFormProps) {
       )}
       {success && (
         <div className="p-4 bg-green-900/30 border border-green-700 rounded-lg text-green-200">
-          ✅ Vidéo uploadée avec succès ! Redirection vers le paiement...
+          ✅ Vidéo uploadée avec succès ! Redirection...
         </div>
       )}
 
@@ -117,7 +146,7 @@ export default function UploadForm({ userId }: UploadFormProps) {
               </label>
               <p className="pl-1">ou glisser-déposer</p>
             </div>
-            <p className="text-xs text-gray-500">MP4, MOV, AVI jusqu'à 100MB</p>
+            <p className="text-xs text-gray-500">MP4, MOV, AVI jusqu'à 100MB (et + grâce à l'upload direct)</p>
             {file && (
               <p className="text-sm text-orange-400 font-medium">
                 {file.name} ({(file.size / 1024 / 1024).toFixed(2)} MB)

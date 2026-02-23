@@ -2,14 +2,14 @@ import { NextRequest, NextResponse } from 'next/server';
 
 // Charger stripe dynamiquement pour éviter erreur build (pas d'env au build time)
 const getStripe = async () => {
-  const { stripe } = await import('@/lib/stripe/server');
+  const { stripe } = await import('../../../../lib/stripe/server');
   return stripe;
 };
 
 export async function POST(req: NextRequest) {
   try {
     const { stripe } = await getStripe();
-    const { createClient } = await import('@/lib/supabase/server');
+    const { createClient } = await import('../../../../lib/supabase/server');
     const supabase = await createClient();
     const { data: { user } } = await supabase.auth.getUser();
 

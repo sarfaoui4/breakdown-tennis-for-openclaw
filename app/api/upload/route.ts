@@ -1,51 +1,24 @@
-// 📤 API Route pour upload vidéo - Tennis Breakdown
+// 📤 API Route pour enregistrement métadonnées vidéo - Tennis Breakdown
 // Fichier: app/api/upload/route.ts
 
-import { createClient } from '@/lib/supabase/server'
+import { createClient } from '../../src/lib/supabase/server'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function POST(request: NextRequest) {
   try {
     const supabase = await createClient()
-    
+
     // Vérifier authentification
     const { data: { user } } = await supabase.auth.getUser()
     if (!user) {
       return NextResponse.json({ error: 'Non authentifié' }, { status: 401 })
     }
 
-    const formData = await request.formData()
-    const file = formData.get('video') as File
-    const title = formData.get('title') as string
-    const description = formData.get('description') as string
+    // Recevoir les métadonnées (fichier déjà uploadé via signed URL)
+    const { filePath, title, description, fileSize, fileName, fileType } = await request.json()
 
-    if (!file) {
-      return NextResponse.json({ error: 'Aucun fichier vidéo' }, { status: 400 })
-    }
-
-    // Vérifier type fichier
-    if (!file.type.startsWith('video/')) {
-      return NextResponse.json({ error: 'Format vidéo requis' }, { status: 400 })
-    }
-
-    // Limite taille (100MB)
-    const maxSize = 100 * 1024 * 1024
-    if (file.size > maxSize) {
-      return NextResponse.json({ error: 'Fichier trop volumineux (max 100MB)' }, { status: 400 })
-    }
-
-    // Générer nom unique
-    const fileExt = file.name.split('.').pop()
-    const fileName = `${crypto.randomUUID()}.${fileExt}`
-    const filePath = `videos/${user.id}/${fileName}`
-
-    // Upload vers Supabase Storage
-    const { data: uploadData, error: uploadError } = await supabase.storage
-      .from('tennis-videos')
-      .upload(filePath, file)
-
-    if (uploadError) {
-      return NextResponse.json({ error: 'Échec upload' }, { status: 500 })
+    if (!filePath) {
+      return NextResponse.json({ error: 'filePath requis' }, { status: 400 })
     }
 
     // Créer entrée dans table videos
@@ -56,9 +29,9 @@ export async function POST(request: NextRequest) {
         title: title || 'Analyse tennis',
         description: description || '',
         file_path: filePath,
-        file_name: file.name,
-        file_size: file.size,
-        file_type: file.type,
+        file_name: fileName || filePath.split('/').pop(),
+        file_size: fileSize || 0,
+        file_type: fileType || 'video/mp4',
         status: 'pending', // pending, processing, analyzed, completed
         price_paid: 0, // À mettre à jour après paiement
         created_at: new Date().toISOString()
@@ -67,22 +40,17 @@ export async function POST(request: NextRequest) {
       .single()
 
     if (dbError) {
-      // Rollback: supprimer le fichier uploadé
-      await supabase.storage.from('tennis-videos').remove([filePath])
       return NextResponse.json({ error: 'Échec enregistrement' }, { status: 500 })
     }
-
-    // TODO: Notifier Sami via email/Telegram
-    // TODO: Déclencher webhook pour traitement
 
     return NextResponse.json({
       success: true,
       video: videoData,
-      message: 'Vidéo uploadée avec succès'
+      message: 'Vidéo enregistrée avec succès'
     })
 
   } catch (error) {
-    console.error('Upload error:', error)
+    console.error('Upload metadata error:', error)
     return NextResponse.json({ error: 'Erreur serveur' }, { status: 500 })
   }
 }
@@ -91,7 +59,7 @@ export async function POST(request: NextRequest) {
 export async function GET(request: NextRequest) {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
-  
+
   if (!user) {
     return NextResponse.json({ error: 'Non authentifié' }, { status: 401 })
   }
