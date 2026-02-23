@@ -1,12 +1,30 @@
 // 📤 API Route pour enregistrement métadonnées vidéo - Tennis Breakdown
 // Fichier: app/api/upload/route.ts
 
-import { createClient } from '../../../src/lib/supabase/server'
 import { NextRequest, NextResponse } from 'next/server'
+import { createServerClient } from '@supabase/ssr'
+import { cookies } from 'next/headers'
+
+const createSupabaseClient = () => {
+  return createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        getAll() {
+          return cookies().getAll();
+        },
+        setAll(cookiesToSet) {
+          cookiesToSet.forEach(cookie => cookies().set(cookie.name, cookie.value, cookie.options));
+        },
+      },
+    }
+  );
+};
 
 export async function POST(request: NextRequest) {
   try {
-    const supabase = await createClient()
+    const supabase = createSupabaseClient()
 
     // Vérifier authentification
     const { data: { user } } = await supabase.auth.getUser()
@@ -57,7 +75,7 @@ export async function POST(request: NextRequest) {
 
 // GET: Liste des vidéos de l'utilisateur
 export async function GET(request: NextRequest) {
-  const supabase = await createClient()
+  const supabase = createSupabaseClient()
   const { data: { user } } = await supabase.auth.getUser()
 
   if (!user) {

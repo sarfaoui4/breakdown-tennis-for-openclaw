@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createClient } from '../../../../src/lib/supabase/server'
+import { createServerClient } from '@supabase/ssr'
+import { cookies } from 'next/headers'
 import { writeFile, unlink } from 'fs/promises'
 import { join } from 'path'
 import { tmpdir } from 'os'
@@ -16,9 +17,27 @@ const ALLOWED_MIME_TYPES = [
   'video/mpeg'
 ]
 
+// Créer le client Supabase directement
+const createSupabaseClient = () => {
+  return createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        getAll() {
+          return cookies().getAll();
+        },
+        setAll(cookiesToSet) {
+          cookiesToSet.forEach(cookie => cookies().set(cookie.name, cookie.value, cookie.options));
+        },
+      },
+    }
+  );
+};
+
 export async function POST(request: NextRequest) {
   try {
-    const supabase = await createClient()
+    const supabase = createSupabaseClient()
     
     // Vérifier l'authentification
     const { data: { user } } = await supabase.auth.getUser()
@@ -143,7 +162,7 @@ export async function POST(request: NextRequest) {
 async function triggerVideoProcessing(videoId: string, filePath: string) {
   // Cette fonction déclenchera le traitement asynchrone de la vidéo
   // Pour l'instant, on met juste à jour le statut
-  const supabase = await createClient()
+  const supabase = createSupabaseClient()
   
   await supabase
     .from('videos')
@@ -157,7 +176,7 @@ async function triggerVideoProcessing(videoId: string, filePath: string) {
 
 export async function GET(request: NextRequest) {
   try {
-    const supabase = await createClient()
+    const supabase = createSupabaseClient()
     
     // Vérifier l'authentification
     const { data: { user } } = await supabase.auth.getUser()

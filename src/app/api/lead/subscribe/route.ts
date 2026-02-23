@@ -1,5 +1,23 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createClient } from '../../../../lib/supabase/server'
+import { createServerClient } from '@supabase/ssr'
+import { cookies } from 'next/headers'
+
+const createSupabaseClient = () => {
+  return createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        getAll() {
+          return cookies().getAll();
+        },
+        setAll(cookiesToSet) {
+          cookiesToSet.forEach(cookie => cookies().set(cookie.name, cookie.value, cookie.options));
+        },
+      },
+    }
+  );
+};
 
 export async function POST(req: NextRequest) {
   try {
@@ -10,7 +28,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Enregistrer dans Supabase (table leads)
-    const supabase = await createClient()
+    const supabase = createSupabaseClient()
     const { error: insertError } = await supabase
       .from('leads')
       .insert({ 
