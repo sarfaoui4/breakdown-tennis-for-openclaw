@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
-import { createClient } from '@/lib/supabase/server';
+import { createClient } from '../../../../lib/supabase/server';
 
 // Créer l'instance Stripe au runtime
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
