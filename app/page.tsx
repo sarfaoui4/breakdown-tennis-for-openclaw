@@ -25,6 +25,9 @@ export default function Home() {
             <a href="/lead" className="px-4 py-2 border border-gray-600 hover:border-orange-500 hover:text-orange-400 rounded-lg transition-colors">
               Guide Gratuit
             </a>
+            <a href="/ressources" className="px-4 py-2 text-gray-300 hover:text-white transition-colors">
+              Ressources
+            </a>
           </div>
         </div>
       </nav>
