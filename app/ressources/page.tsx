@@ -23,7 +23,7 @@ const ressources = [
     category: "Technique",
   },
   {
-    slug: "ameliorer-service-tennis",
+    slug: "ameliorer-service",
     title: "Comment améliorer son service au tennis : 5 exercices efficaces",
     description: "Améliorez votre service grâce à 5 exercices simples à pratiquer. Techniques de grip, toss, et fluidité pour plus de puissance et de précision.",
     date: "28 février 2025",
