@@ -45,6 +45,22 @@ const articles = [
     readTime: "12 min",
     image: "/images/blog/analyse-video.jpg",
   },
+  {
+    slug: "choisir-raquette-guide-2025",
+    title: "Comment choisir sa raquette de tennis ? Guide complet 2025",
+    description: "Guide 2025 pour choisir LA raquette idéale selon votre niveau, style de jeu et morphologie. Poids, taille, équilibre, rigidité : tous les critères décryptés.",
+    date: "18 mars 2025",
+    readTime: "10 min",
+    image: "/images/blog/raquette-tennis.jpg",
+  },
+  {
+    slug: "tennis-debutants-par-ou-commencer",
+    title: "Tennis pour débutants : par où commencer ?",
+    description: "Vous commencez le tennis ? Guide complet pour bien débuter : équipement, règles, premiers cours, erreurs à éviter. Progresser rapidement avec les bonnes bases.",
+    date: "18 mars 2025",
+    readTime: "12 min",
+    image: "/images/blog/debutant-tennis.jpg",
+  },
 ]
 
 export default function BlogPage() {
