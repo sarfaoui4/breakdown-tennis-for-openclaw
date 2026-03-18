@@ -1,6 +1,6 @@
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 
-export function middleware(request: Request) {
+export function middleware(request: NextRequest) {
   const url = request.nextUrl.clone()
   if (url.pathname === '/google620f3bb84650dabf.html') {
     return new Response('google-site-verification: google620f3bb84650dabf.html', {
